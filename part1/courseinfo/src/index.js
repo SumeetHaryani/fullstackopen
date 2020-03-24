@@ -22,13 +22,14 @@ const App = () => {
   return (
     <div>
       <Header course={course.name} />
-      <Content content={course.part} />
-      <Total items={course.part} />
+      <Content parts={course.part} />
+      <Total parts={course.part} />
     </div>
   );
 };
 
 const Header = props => {
+  console.log(props);
   return <h1>{props.course}</h1>;
 };
 const Part = props => {
@@ -41,25 +42,16 @@ const Part = props => {
 const Content = props => {
   return (
     <div>
-      <Part
-        part={props.content[0].name}
-        exercises={props.content[0].exercises}
-      />
-      <Part
-        part={props.content[1].name}
-        exercises={props.content[1].exercises}
-      />
-      <Part
-        part={props.content[2].name}
-        exercises={props.content[2].exercises}
-      />
+      <Part part={props.parts[0].name} exercises={props.parts[0].exercises} />
+      <Part part={props.parts[1].name} exercises={props.parts[1].exercises} />
+      <Part part={props.parts[2].name} exercises={props.parts[2].exercises} />
     </div>
   );
 };
 
 const Total = props => {
   let total = 0;
-  props.items.forEach(item => {
+  props.parts.forEach(item => {
     total += item.exercises;
   });
 
