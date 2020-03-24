@@ -1,0 +1,25 @@
+note over browser:
+Add text in input field and submit the form
+end note 
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_notes
+server-->browser: HTTP status code 302
+note over browser:
+Browser reloads
+end note 
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
+server-->browser: HTML-code
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
+server-->browser: main.js
+
+note over browser:
+browser executes js-code
+end note
+
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+server-->browser: data.json
+
+note over browser:
+display notes
+end note
