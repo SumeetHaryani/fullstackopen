@@ -1,12 +1,12 @@
 import React from 'react';
-const CurrentWeather = ({ weather }) => {
-  //console.log(props.weather);
+const CurrentWeather = ({ weather, capital }) => {
+  // console.log(capital);
   if (!weather) {
     return <div></div>;
   }
   const { temperature, weather_icons, wind_speed, wind_dir } = weather;
 
-  console.log('CurrentWeather -> weather_icons', weather_icons);
+  //console.log('CurrentWeather -> weather_icons', weather_icons);
 
   return (
     <div>
@@ -14,7 +14,7 @@ const CurrentWeather = ({ weather }) => {
       {temperature} Celcius
       <br />
       {weather_icons.map(icon => (
-        <img width='100' src={icon} alt='icon'></img>
+        <img key={capital} width='100' src={icon} alt='icon'></img>
       ))}
       <br />
       <b>wind: </b> {wind_speed} direction {wind_dir}

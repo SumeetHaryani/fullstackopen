@@ -4,7 +4,6 @@ import axios from 'axios';
 import CurrentWeather from './CurrentWeather';
 const api_key = process.env.REACT_APP_WEATHER_API_KEY;
 const Weather = ({ capital }) => {
-
   const [weather, setWeather] = useState('');
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const Weather = ({ capital }) => {
   return (
     <div>
       <h2>Weather in {capital}</h2>
-      <CurrentWeather weather={weather} />
+      <CurrentWeather capital={capital} weather={weather} />
     </div>
   );
 };
