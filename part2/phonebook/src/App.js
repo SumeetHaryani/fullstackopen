@@ -3,7 +3,7 @@ import Filter from './components/Filter';
 import Person from './components/Person';
 import PersonForm from './components/PersonForm';
 import phoneService from './services/phone';
-import phone from './services/phone';
+import Notification from './components/Notification';
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -11,6 +11,8 @@ function App() {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setNewFilter] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   useEffect(() => {
     phoneService.getAll().then((initialPersons) => {
       setPersons(initialPersons);
@@ -45,17 +47,23 @@ function App() {
         setPersons(persons.concat(returnedPerson));
         setNewName('');
         setNewNumber('');
+        setErrorMessage(`Added ${returnedPerson.name}`);
       });
     }
   };
-  
+
   const deletePerson = (id, name) => {
     //console.log("deletePerson -> id", id)
     const result = window.confirm(`Delete ${name} ?`);
     if (result) {
       phoneService
         .deletePerson(id)
-        .then(() => setPersons(persons.filter((person) => person.id != id)));
+        .then(() => setPersons(persons.filter((person) => person.id != id)))
+        .catch((error) =>
+          setErrorMessage(
+            `Information of ${name} has been already removed from server`
+          )
+        );
     }
   };
   const handleNameChange = (event) => {
@@ -78,6 +86,7 @@ function App() {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       <Filter value={filter} onChange={handleFilterChange} />
       <h1>Add a new </h1>
       <PersonForm
