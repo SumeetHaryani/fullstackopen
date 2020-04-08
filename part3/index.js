@@ -1,7 +1,15 @@
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 app.use(express.json());
+app.use(
+  morgan(':method :url :status :res[content-length] - :response-time ms :body')
+);
+
+morgan.token('body', (req, res) => {
+  return JSON.stringify(req.body);
+});
 let persons = [
   {
     name: 'Arto Hellas',
@@ -47,8 +55,7 @@ app.get('/info', (req, res) => {
 });
 
 const getRandomId = (max = 1000) => Math.floor(Math.random() * Math.floor(max));
-const checkUniqueName = (name) =>
-  persons.find((person) => person.name == name);
+const checkUniqueName = (name) => persons.find((person) => person.name == name);
 app.post('/api/persons', (req, res) => {
   const  body  = req.body;
   console.log('body', body);
