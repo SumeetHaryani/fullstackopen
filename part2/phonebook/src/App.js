@@ -61,7 +61,7 @@ function App() {
     if (result) {
       phoneService
         .deletePerson(id)
-        .then(() => setPersons(persons.filter((person) => person.id !== Number(id))))
+        .then(() => setPersons(persons.filter((person) => person.id !== (id))))
         .catch((error) =>{
           setErrorMessage(
             `Information of ${name} has been already removed from server`
